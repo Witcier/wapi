@@ -41,11 +41,14 @@ class Kernel extends HttpKernel
 
             // 记录用户最后活跃时间
             \App\Http\Middleware\RecordLastActivedTime::class,
+
         ],
 
         'api' => [
             'throttle:60,1',
             'bindings',
+            // 返回默认的 json
+            \App\Http\Middleware\AcceptHeader::class,
         ],
     ];
 
