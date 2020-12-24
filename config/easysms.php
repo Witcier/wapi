@@ -2,7 +2,7 @@
 
 return [
     // 请求超时时间
-    'timeout' => 10.0,
+    'timeout' => 20.0,
 
     // 默认发送配置
     'default' => [
@@ -23,6 +23,9 @@ return [
             'access_key_id' => env('SMS_ALIYUN_ACCESS_KEY_ID'),
             'access_key_secret' => env('SMS_ALIYUN_ACCESS_KEY_SECRET'),
             'sign_name' => 'wapi',
+            'templates' => [
+                'register' => env('SMS_ALIYUN_TEMPLATE_REGISTER'),
+            ],
         ],
     ],
 ];
