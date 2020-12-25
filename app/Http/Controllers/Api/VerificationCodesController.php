@@ -34,13 +34,13 @@ class VerificationCodesController extends Controller
 
             try {
                 $result = $easySms->send($phone, [
-                    'template' => config('easysms.gateways.aliyun.templates.register'),
+                    'template' => config('easysms.gateways.qcloud.templates.register'),
                     'data' => [
-                        'code' => $code,
+                        $code,
                     ],
                 ]);
             } catch (\Overtrue\EasySms\Exceptions\NoGatewayAvailableException $exception) {
-                $message = $exception->getException('aliyun')->getMessage();
+                $message = $exception->getException('qcloud')->getMessage();
                 abort(500, $message ?: '短信发送异常');
             }
         }
