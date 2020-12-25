@@ -7,6 +7,7 @@ use App\Http\Requests\Api\SocialAuthorizationRequest;
 use App\Models\User;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Overtrue\Socialite\AccessToken;
 
 class AuthorizationsController extends Controller
@@ -17,26 +18,25 @@ class AuthorizationsController extends Controller
 
         try {
             if ($code = $request->code) {
-                $accessToken = $driver->getAccessToken($code);
+                $response = $driver->getAccessTokenResponse($code);
+                $token = Arr::get($response, 'access_token');
             } else {
-                $tokenData['access_token'] = $request->access_token;
+                $token = $request->access_token;
 
                 // 微信需要增加 openid
-                if ($type == 'wechat') {
-                    $tokenData['openid'] = $request->openid;
+                if ($type == 'weixin') {
+                    $driver->setOpenId($request->openid);
                 }
-
-                $accessToken = new AccessToken($tokenData);
             }
 
-            $oauthUser = $driver->user($accessToken);
+            $oauthUser = $driver->userFromToken($token);
         } catch (\Exception $e) {
             throw new AuthenticationException('参数错误，未获取到用户信息');
         }
 
         switch ($type) {
-            case 'wechat':
-                $unionid = $oauthUser->getOriginal()['unionid'] ?? null;
+            case 'weixin':
+                $unionid = $oauthUser->offsetExists('unionid') ? $oauthUser->offsetGet('unionid') : null;
 
                 if ($unionid) {
                     $user = User::where('weixin_unionid', $unionid)->first();

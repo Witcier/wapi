@@ -26,7 +26,7 @@ class SocialAuthorizationRequest extends FormRequest
             'access_token' => 'required_without:code|string',
         ];
 
-        if ($this->social_type == 'wechat' && !$this->code) {
+        if ($this->social_type == 'weixin' && !$this->code) {
             $rules['openid'] = 'required|string';
         }
 
