@@ -32,7 +32,9 @@ return [
             'sdk_app_id' => env('SMS_QCLOUD_SDK_APP_ID'),
             'app_key' => env('SMS_QCLOUD_APP_KEY'),
             'sign_name' => env('SMS_QCLOUD_SIGN_NAME'),
-            'templates' => env('SMS_QCLOUD_TEMPLATE_REGISTER'),
+            'templates' => [
+                'register' => env('SMS_QCLOUD_TEMPLATE_REGISTER'),
+            ],
         ],
     ],
 ];

@@ -18,7 +18,7 @@ class VerificationCodesController extends Controller
             abort(403, '图片验证码已失效');
         }
 
-        if (!hash_equals($captchaData['code'], $request->captcha_code)) {
+        if (!hash_equals(strtolower($captchaData['code']), strtolower($request->captcha_code))) {
             // 验证错误，清除缓存
             \Cache::forget($request->captcha_key);
             throw new AuthenticationException('验证码错误');
@@ -26,7 +26,7 @@ class VerificationCodesController extends Controller
 
         $phone = $captchaData['phone'];
 
-        if (!app()->environment('production')) {
+        if (!app()->environment('local')) {
             $code = '1234';
         } else {
              // 生成 4 位随机数，左侧补 0

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Requests\UserRequest;
+use App\Http\Requests\Api\UserRequest;
 use App\Http\Resources\UserResource;
 use App\Models\Image;
 use App\Models\User;
