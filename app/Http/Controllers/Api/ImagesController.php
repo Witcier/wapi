@@ -19,7 +19,7 @@ class ImagesController extends Controller
         $result = $uploader->save($request->image, Str::plural($request->type), $user->id, $size);
 
         $image->path = $result['path'];
-        $image->type = $result->type;
+        $image->type = $request->type;
         $image->user_id = $user->id;
         $image->save();
 

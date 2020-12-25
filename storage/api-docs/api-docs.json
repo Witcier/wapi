@@ -1,0 +1,36 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "OpenApi",
+        "contact": {
+            "name": "Pek Ratanak",
+            "url": "https://www.google.com"
+        },
+        "version": "1.0"
+    },
+    "host": "127.0.0.1",
+    "basePath": "",
+    "schemes": [
+        "http"
+    ],
+    "paths": {},
+    "definitions": {
+        "Error": {
+            "required": [
+                "code",
+                "message"
+            ],
+            "properties": {
+                "code": {
+                    "description": "Class Controller",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "message": {
+                    "description": "Class Controller",
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

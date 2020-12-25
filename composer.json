@@ -9,6 +9,7 @@
     "license": "MIT",
     "require": {
         "php": "^7.2",
+        "darkaonline/l5-swagger": "6.*",
         "doctrine/dbal": "2.9.2",
         "fideloper/proxy": "^4.0",
         "gregwar/captcha": "^1.1",
@@ -28,7 +29,8 @@
         "summerblue/administrator": "6.*",
         "summerblue/laravel-active": "6.*",
         "tymon/jwt-auth": "^1.0",
-        "viacreative/sudo-su": "~1.1"
+        "viacreative/sudo-su": "~1.1",
+        "zircote/swagger-php": "2.*"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "~3.2",
