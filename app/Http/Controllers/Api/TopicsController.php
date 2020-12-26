@@ -72,9 +72,13 @@ class TopicsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(TopicRequest $request, Topic $topic)
     {
-        //
+        $this->authorize('own', $topic);
+
+        $topic->update($request->all());
+
+        return new TopicResource($topic);
     }
 
     /**

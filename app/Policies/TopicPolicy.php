@@ -16,4 +16,9 @@ class TopicPolicy extends Policy
     {
         return $user->isAuthorOf($topic);
     }
+
+    public function own(User $user, Topic $topic)
+    {
+        return $user->id == $topic->user_id;
+    }
 }
