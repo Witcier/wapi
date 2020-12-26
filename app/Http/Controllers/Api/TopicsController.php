@@ -87,8 +87,12 @@ class TopicsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Topic $topic)
     {
+        $this->authorize('own', $topic);
 
+        $topic->delete();
+
+        return response(null, 204);
     }
 }
