@@ -54,6 +54,9 @@ Route::prefix('v1')->namespace('Api')->name('api.v1.')->group(function() {
         // 帖子列表、详情
         Route::resource('topics', 'TopicsController')->only(['index', 'show']);
 
+        // 帖子回复列表
+        Route::get('topics/{topic}/replies', 'RepliesController@index')->name('topics.replies.index');
+
         //登录之后可以访问的接口
         Route::middleware('auth:api')->group(function () {
             // 用户的登录信息
@@ -70,6 +73,9 @@ Route::prefix('v1')->namespace('Api')->name('api.v1.')->group(function() {
 
             // 发布回复
             Route::post('topics/{topic}/replies', 'RepliesController@store')->name('topics.replies.store');
+
+            // 删除回复
+            Route::delete('topics/{topic}/replies/{reply}', 'RepliesController@destroy')->name('topics.replies.destroy');
         });
     });
 });

@@ -6,8 +6,6 @@ use App\Http\Requests\Api\ReplyRequest;
 use App\Http\Resources\ReplyResource;
 use App\Models\Reply;
 use App\Models\Topic;
-use Illuminate\Http\Request;
-
 class RepliesController extends Controller
 {
     public function store(ReplyRequest $request, Topic $topic, Reply $reply)
@@ -19,5 +17,17 @@ class RepliesController extends Controller
         $reply->save();
 
         return new ReplyResource($reply);
+    }
+
+    public function destroy(Topic $topic, Reply $reply)
+    {
+        if ($reply->topic_id !== $topic->id) {
+            abort(404);
+        }
+
+        $this->authorize('own', $reply);
+        $reply->delete();
+
+        return response(null, 204);
     }
 }
