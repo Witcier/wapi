@@ -7,6 +7,8 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use App\Models\Reply;
+use App\Notifications\Channels\JPushChannel;
+use JPush\PushPayload;
 
 class TopicReplied extends Notification
 {
@@ -23,7 +25,7 @@ class TopicReplied extends Notification
     public function via($notifiable)
     {
         // 开启通知的频道
-        return ['database'];
+        return ['database'. 'mail', JPushChannel::class];
     }
 
     public function toDatabase($notifiable)
@@ -42,5 +44,13 @@ class TopicReplied extends Notification
             'topic_id' => $topic->id,
             'topic_title' => $topic->title,
         ];
+    }
+
+    public function toJPush($notifiable, PushPayload $payload): PushPayload
+    {
+        return $payload
+            ->setPlatform('all')
+            ->addRegistrationId($notifiable->registration_id)
+            ->setNotificationAlert(strip_tags($this->reply->content));
     }
 }
